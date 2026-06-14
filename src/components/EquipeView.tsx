@@ -26,7 +26,6 @@ const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
     '/isabella.jpg',
     '/assets/Isabella.jpg',
     '/assets/isabella.jpg',
-    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=600'
   ],
   'maria-eduarda': [
     '/Maria Eduarda.jpg',
@@ -35,28 +34,24 @@ const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
     '/maria_eduarda.jpg',
     '/assets/Maria Eduarda.jpg',
     '/assets/maria-eduarda.jpg',
-    'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&q=80&w=600'
   ],
   giulia: [
     '/Giulia.jpg',
     '/giulia.jpg',
     '/assets/Giulia.jpg',
     '/assets/giulia.jpg',
-    'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80&w=600'
   ],
   renata: [
     '/Renata.jpg',
     '/renata.jpg',
     '/assets/Renata.jpg',
     '/assets/renata.jpg',
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600'
   ],
   larissa: [
     '/Larissa.jpg',
     '/larissa.jpg',
     '/assets/Larissa.jpg',
     '/assets/larissa.jpg',
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600'
   ],
   'maria-luiza': [
     '/Maria Luiza.jpg',
@@ -65,7 +60,6 @@ const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
     '/maria_luiza.jpg',
     '/assets/Maria Luiza.jpg',
     '/assets/maria-luiza.jpg',
-    'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=600'
   ],
   'maria-natalia': [
     '/Maria Natália.jpg',
@@ -75,7 +69,6 @@ const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
     '/Maria Natalia.jpg',
     '/assets/Maria Natália.jpg',
     '/assets/maria-natalia.jpg',
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'
   ]
 };
 
