@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import InicioView from './components/InicioView';
@@ -18,6 +18,39 @@ export default function App() {
   const [appointments, setAppointments] = useState<Appointment[]>(INITIAL_APPOINTMENTS);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [cart, setCart] = useState<{ product: Product; quantity: number }[]>([]);
+
+  // Synchronize localStorage backup custom photos to the server disk permanently on startup
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('petvida_custom_staff_photos');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+          console.log('Detected custom photos in localStorage, synchronizing to server disk...');
+          fetch('/api/save-photos', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ photos: parsed }),
+          })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              console.log('All custom photos successfully persisted to server disk:', data.files);
+              // Clear custom photos from localStorage now that they are saved permanently as assets on the server
+              localStorage.removeItem('petvida_custom_staff_photos');
+            }
+          })
+          .catch((err) => {
+            console.error('Error synchronizing custom photos to server backend:', err);
+          });
+        }
+      }
+    } catch (e) {
+      console.error('Failed to parse petvida_custom_staff_photos for synchronization:', e);
+    }
+  }, []);
 
   const addToCart = (product: Product) => {
     setCart((prev) => {
