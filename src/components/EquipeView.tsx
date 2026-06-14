@@ -22,53 +22,53 @@ import { STAFF_MEMBERS } from '../data';
 
 const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
   isabella: [
-    '/Isabella.jpg',
-    '/isabella.jpg',
-    '/assets/Isabella.jpg',
-    '/assets/isabella.jpg',
+    '/Isabella.jpg?v=2',
+    '/isabella.jpg?v=2',
+    '/assets/Isabella.jpg?v=2',
+    '/assets/isabella.jpg?v=2',
   ],
   'maria-eduarda': [
-    '/Maria Eduarda.jpg',
-    '/maria-eduarda.jpg',
-    '/Maria-Eduarda.jpg',
-    '/maria_eduarda.jpg',
-    '/assets/Maria Eduarda.jpg',
-    '/assets/maria-eduarda.jpg',
+    '/Maria Eduarda.jpg?v=2',
+    '/maria-eduarda.jpg?v=2',
+    '/Maria-Eduarda.jpg?v=2',
+    '/maria_eduarda.jpg?v=2',
+    '/assets/Maria Eduarda.jpg?v=2',
+    '/assets/maria-eduarda.jpg?v=2',
   ],
   giulia: [
-    '/Giulia.jpg',
-    '/giulia.jpg',
-    '/assets/Giulia.jpg',
-    '/assets/giulia.jpg',
+    '/Giulia.jpg?v=2',
+    '/giulia.jpg?v=2',
+    '/assets/Giulia.jpg?v=2',
+    '/assets/giulia.jpg?v=2',
   ],
   renata: [
-    '/Renata.jpg',
-    '/renata.jpg',
-    '/assets/Renata.jpg',
-    '/assets/renata.jpg',
+    '/Renata.jpg?v=2',
+    '/renata.jpg?v=2',
+    '/assets/Renata.jpg?v=2',
+    '/assets/renata.jpg?v=2',
   ],
   larissa: [
-    '/Larissa.jpg',
-    '/larissa.jpg',
-    '/assets/Larissa.jpg',
-    '/assets/larissa.jpg',
+    '/Larissa.jpg?v=2',
+    '/larissa.jpg?v=2',
+    '/assets/Larissa.jpg?v=2',
+    '/assets/larissa.jpg?v=2',
   ],
   'maria-luiza': [
-    '/Maria Luiza.jpg',
-    '/maria-luiza.jpg',
-    '/Maria-Luiza.jpg',
-    '/maria_luiza.jpg',
-    '/assets/Maria Luiza.jpg',
-    '/assets/maria-luiza.jpg',
+    '/Maria Luiza.jpg?v=2',
+    '/maria-luiza.jpg?v=2',
+    '/Maria-Luiza.jpg?v=2',
+    '/maria_luiza.jpg?v=2',
+    '/assets/Maria Luiza.jpg?v=2',
+    '/assets/maria-luiza.jpg?v=2',
   ],
   'maria-natalia': [
-    '/Maria Natália.jpg',
-    '/maria-natalia.jpg',
-    '/Maria-Natalia.jpg',
-    '/maria_natalia.jpg',
-    '/Maria Natalia.jpg',
-    '/assets/Maria Natália.jpg',
-    '/assets/maria-natalia.jpg',
+    '/Maria Natália.jpg?v=2',
+    '/maria-natalia.jpg?v=2',
+    '/Maria-Natalia.jpg?v=2',
+    '/maria_natalia.jpg?v=2',
+    '/Maria Natalia.jpg?v=2',
+    '/assets/Maria Natália.jpg?v=2',
+    '/assets/maria-natalia.jpg?v=2',
   ]
 };
 
@@ -287,25 +287,33 @@ export default function EquipeView() {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-gray-100 pb-6 mb-6">
                     <div className="relative shrink-0">
                       <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white shadow-md relative bg-gray-50 flex items-center justify-center">
-                        <img 
-                          alt={staff.name} 
-                          className="w-full h-full object-cover object-center" 
-                          src={customPhotos[staff.id] || staff.image || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=250'}
-                          referrerPolicy="no-referrer"
-                          data-error-idx="0"
-                          onError={(e) => {
-                            // Only try fallbacks if they haven't uploaded a custom photo that's currently failing
-                            if (customPhotos[staff.id]) return;
-                            const currentTarget = e.currentTarget;
-                            const currentIdx = parseInt(currentTarget.getAttribute('data-error-idx') || '0', 10);
-                            const fallbacks = STAFF_FALLBACKS_MAP[staff.id] || [];
-                            const nextIdx = currentIdx + 1;
-                            if (nextIdx < fallbacks.length) {
-                              currentTarget.setAttribute('data-error-idx', String(nextIdx));
-                              currentTarget.src = fallbacks[nextIdx];
-                            }
-                          }}
-                        />
+                        {(() => {
+                          const storedVal = customPhotos[staff.id];
+                          const hasCustomPhoto = storedVal && storedVal.trim() !== "" && storedVal !== "null" && storedVal !== "undefined";
+                          let imgUrl = hasCustomPhoto ? storedVal : (staff.image || "/isabella.jpg");
+                          if (imgUrl.startsWith("/") && !imgUrl.includes("?")) {
+                            imgUrl = `${imgUrl}?v=2`;
+                          }
+                          return (
+                            <img 
+                              alt={staff.name} 
+                              className="w-full h-full object-cover object-center" 
+                              src={imgUrl}
+                              referrerPolicy="no-referrer"
+                              data-error-idx="0"
+                              onError={(e) => {
+                                const currentTarget = e.currentTarget;
+                                const currentIdx = parseInt(currentTarget.getAttribute('data-error-idx') || '0', 10);
+                                const fallbacks = STAFF_FALLBACKS_MAP[staff.id] || [];
+                                const nextIdx = currentIdx + 1;
+                                if (nextIdx < fallbacks.length) {
+                                  currentTarget.setAttribute('data-error-idx', String(nextIdx));
+                                  currentTarget.src = fallbacks[nextIdx];
+                                }
+                              }}
+                            />
+                          );
+                        })()}
                       </div>
 
                       <div className="absolute -bottom-1 -right-1 bg-primary text-white p-1.5 rounded-full shadow-md z-10">
