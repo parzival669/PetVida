@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=Satisfy&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #446371;
+  --color-primary-container: #a7c7d7;
+  --color-on-primary-container: #355461;
+  --color-secondary: #566343;
+  --color-secondary-container: #d7e5bd;
+  --color-on-secondary-container: #5a6747;
+  --color-tertiary: #874d60;
+  --color-tertiary-container: #f7aec4;
+  --color-on-tertiary-container: #763f51;
+  --color-background-custom: #f8f9fa;
+  --color-primary-fixed: #c7e7f8;
+  --color-primary-fixed-dim: #abcbdb;
+  --font-sans: "Open Sans", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background-custom);
+  color: #191c1d;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}

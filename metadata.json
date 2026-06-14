@@ -1,0 +1,6 @@
+{
+  "name": "PetVida",
+  "description": "Plataforma web completa do hospital veterinário e pet shop PetVida, com apresentação de equipe, serviços preventivos e estético, agendamento de consultas com prontuário digital e blog informativo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
