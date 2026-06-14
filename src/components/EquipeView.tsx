@@ -19,6 +19,7 @@ import {
   Award
 } from 'lucide-react';
 import { STAFF_MEMBERS } from '../data';
+import { DEFAULT_STAFF_PHOTOS } from '../defaultPhotos';
 
 const STAFF_FALLBACKS_MAP: Record<string, string[]> = {
   isabella: [
@@ -290,25 +291,19 @@ export default function EquipeView() {
                         {(() => {
                           const storedVal = customPhotos[staff.id];
                           const hasCustomPhoto = storedVal && storedVal.trim() !== "" && storedVal !== "null" && storedVal !== "undefined";
-                          let imgUrl = hasCustomPhoto ? storedVal : (staff.image || "/isabella.jpg");
-                          if (imgUrl.startsWith("/") && !imgUrl.includes("?")) {
-                            imgUrl = `${imgUrl}?v=2`;
-                          }
+                          // Fallback directly to the 100% robust inline base64 string for initial load
+                          const imgUrl = hasCustomPhoto ? storedVal : (DEFAULT_STAFF_PHOTOS[staff.id] || "/isabella.jpg");
                           return (
                             <img 
                               alt={staff.name} 
                               className="w-full h-full object-cover object-center" 
                               src={imgUrl}
-                              referrerPolicy="no-referrer"
                               data-error-idx="0"
                               onError={(e) => {
                                 const currentTarget = e.currentTarget;
-                                const currentIdx = parseInt(currentTarget.getAttribute('data-error-idx') || '0', 10);
-                                const fallbacks = STAFF_FALLBACKS_MAP[staff.id] || [];
-                                const nextIdx = currentIdx + 1;
-                                if (nextIdx < fallbacks.length) {
-                                  currentTarget.setAttribute('data-error-idx', String(nextIdx));
-                                  currentTarget.src = fallbacks[nextIdx];
+                                const defaultB64 = DEFAULT_STAFF_PHOTOS[staff.id];
+                                if (defaultB64 && currentTarget.src !== defaultB64) {
+                                  currentTarget.src = defaultB64;
                                 }
                               }}
                             />
