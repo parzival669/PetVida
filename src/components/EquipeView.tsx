@@ -288,9 +288,10 @@ export default function EquipeView() {
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-gray-100 pb-6 mb-6">
                     <div className="relative shrink-0">
                       <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white shadow-md relative bg-gray-50 flex items-center justify-center">
-                        {(() => {
+                         {(() => {
                           const storedVal = customPhotos[staff.id];
-                          const hasCustomPhoto = storedVal && storedVal.trim() !== "" && storedVal !== "null" && storedVal !== "undefined";
+                          // Only use custom photos if they are valid base64 data URIs (crucial for serverless or static hosting platforms like Vercel)
+                          const hasCustomPhoto = storedVal && typeof storedVal === 'string' && storedVal.startsWith('data:image/');
                           // Fallback directly to the 100% robust inline base64 string for initial load
                           const imgUrl = hasCustomPhoto ? storedVal : (DEFAULT_STAFF_PHOTOS[staff.id] || "/isabella.jpg");
                           return (
